@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 #nullable enable
 
-namespace LoreSoft.Extensions;
+namespace System.Collections.Generic;
 
 /// <summary>
 /// Extension methods for <see cref="T:System.Collection.IEnumerable{T}"/>
 /// </summary>
-public static class EnumerableExtensions
+public static partial class EnumerableExtensions
 {
     /// <summary>
     /// Converts an IEnumerable of values to a delimited string.

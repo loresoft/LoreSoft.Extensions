@@ -1,14 +1,12 @@
-using System;
-
 #nullable enable
 
-namespace LoreSoft.Extensions;
+namespace System;
 
 #if NET6_0_OR_GREATER
 /// <summary>
 ///   <see cref="DateOnly" /> extension methods
 /// </summary>
-public static class DateOnlyExtensions
+public static partial class DateOnlyExtensions
 {
     /// <summary>
     /// Converts the <see cref="DateOnly"/> to a <see cref="DateTimeOffset"/> in the specified timezone.

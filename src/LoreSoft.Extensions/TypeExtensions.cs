@@ -1,13 +1,11 @@
-using System;
-
 #nullable enable
 
-namespace LoreSoft.Extensions;
+namespace System;
 
 /// <summary>
 /// Extension methods for <see cref="Type"/>.
 /// </summary>
-public static class TypeExtensions
+public static partial class TypeExtensions
 {
     /// <summary>
     /// Gets the underlying type argument of the specified nullable type.

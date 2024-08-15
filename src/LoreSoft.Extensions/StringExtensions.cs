@@ -1,14 +1,14 @@
-using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 #nullable enable
 
-namespace LoreSoft.Extensions;
+namespace System;
 
-public static class StringExtensions
+public static partial class StringExtensions
 {
     /// <summary>
     /// Truncates the specified text.
@@ -110,7 +110,17 @@ public static class StringExtensions
             return text;
 
         var words = Regex.Matches(text, "([A-Z][a-z]*)|([0-9]+)");
-        return string.Join(" ", words.Select(w => w.Value));
+
+        var builder = new StringBuilder();
+        foreach (Match word in words)
+        {
+            if (builder.Length > 0)
+                builder.Append(" ");
+
+            builder.Append(word.Value);
+        }
+
+        return builder.ToString();
     }
 
 }

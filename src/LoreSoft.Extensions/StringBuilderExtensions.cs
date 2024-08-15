@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 #nullable enable
 
-namespace LoreSoft.Extensions;
+namespace System.Text;
 
-public static class StringBuilderExtensions
+public static partial class StringBuilderExtensions
 {
     /// <summary>
     /// Appends a copy of the specified string followed by the default line terminator to the end of the StringBuilder object.

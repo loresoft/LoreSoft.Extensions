@@ -1,10 +1,8 @@
 using System.Data.Common;
-using System.Data;
-using System;
 
 #nullable enable
 
-namespace LoreSoft.Extensions;
+namespace System.Data;
 
 /// <summary>
 /// Extension methods for <see cref="IDataRecord"/>.

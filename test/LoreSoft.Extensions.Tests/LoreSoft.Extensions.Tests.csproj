@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\LoreSoft.Extensions\LoreSoft.Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Bogus" />
     <Using Include="FluentAssertions" />
     <Using Include="Xunit" />

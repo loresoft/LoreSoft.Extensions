@@ -31,16 +31,14 @@ public static class DataRecordExtensions
     /// <param name="dataRecord">The data record.</param>
     /// <param name="name">The name of the column to find.</param>
     /// <returns>The value of the specified column.</returns>
-    public static T GetValue<T>(this IDataRecord dataRecord, string name)
+    public static T? GetValue<T>(this IDataRecord dataRecord, string name)
     {
         if (dataRecord is null)
             throw new ArgumentNullException(nameof(dataRecord));
 
         int ordinal = dataRecord.GetOrdinal(name);
-        if (dataRecord is DbDataReader dataReader)
-            return dataReader.GetFieldValue<T>(ordinal);
 
-        return (T)dataRecord.GetValue(ordinal);
+        return GetValue<T>(dataRecord, ordinal);
     }
 
     /// <summary>
@@ -48,17 +46,20 @@ public static class DataRecordExtensions
     /// </summary>
     /// <typeparam name="T">The record value type</typeparam>
     /// <param name="dataRecord">The data record.</param>
-    /// <param name="index">The zero-based column ordinal.</param>
+    /// <param name="ordinal">The zero-based column ordinal.</param>
     /// <returns>The value of the specified column.</returns>
-    public static T GetValue<T>(this IDataRecord dataRecord, int index)
+    public static T? GetValue<T>(this IDataRecord dataRecord, int ordinal)
     {
         if (dataRecord is null)
             throw new ArgumentNullException(nameof(dataRecord));
 
-        if (dataRecord is DbDataReader dataReader)
-            return dataReader.GetFieldValue<T>(index);
+        if (dataRecord.IsDBNull(ordinal))
+            return default;
 
-        return (T)dataRecord.GetValue(index);
+        if (dataRecord is DbDataReader dataReader)
+            return dataReader.GetFieldValue<T>(ordinal);
+
+        return (T)dataRecord.GetValue(ordinal);
     }
 
     /// <summary>Determines whether the specified field is set to <see langword="null"/>.</summary>

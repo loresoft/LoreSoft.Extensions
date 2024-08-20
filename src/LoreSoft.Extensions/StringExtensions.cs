@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace System;
 
+/// <summary>
+/// Extension methods for <see cref="String"/>.
+/// </summary>
 public static partial class StringExtensions
 {
     /// <summary>

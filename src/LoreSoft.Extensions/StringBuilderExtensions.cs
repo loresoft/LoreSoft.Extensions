@@ -5,6 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace System.Text;
 
+/// <summary>
+/// Extension methods for <see cref="StringBuilder"/>.
+/// </summary>
 public static partial class StringBuilderExtensions
 {
     /// <summary>

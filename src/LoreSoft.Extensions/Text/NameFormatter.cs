@@ -39,36 +39,47 @@ public static class NameFormatter
             var ch = e.Current;
             if (ch == '{')
             {
+                // start expression block, continue till closing char
                 while (true)
                 {
+                    // end of format string without closing expression
                     if (!e.MoveNext())
                         throw new FormatException();
 
                     ch = e.Current;
                     if (ch == '}')
                     {
+                        // close expression block, evaluate expression and add to result
                         string value = Evaluate(source, expression.ToString());
                         result.Append(value);
+
+                        // reset expression buffer
                         expression.Length = 0;
                         break;
                     }
                     if (ch == '{')
                     {
+                        // double expression start, add to result
                         result.Append(ch);
                         break;
                     }
+
+                    // add to expression buffer
                     expression.Append(ch);
                 }
             }
             else if (ch == '}')
             {
+                // close expression char without having started one
                 if (!e.MoveNext() || e.Current != '}')
                     throw new FormatException();
 
+                // double expression close, add to result
                 result.Append('}');
             }
             else
             {
+                // normal char, add to result
                 result.Append(ch);
             }
         }
@@ -83,6 +94,7 @@ public static class NameFormatter
 
         string format = null;
 
+        // support format string {0:d}
         int colonIndex = expression.IndexOf(':');
         if (colonIndex > 0)
         {
@@ -90,6 +102,7 @@ public static class NameFormatter
             expression = expression[..colonIndex];
         }
 
+        // better way to support more dictionary generics?
         if (source is IDictionary<string, string> stringDictionary)
         {
             stringDictionary.TryGetValue(expression, out var value);
@@ -119,6 +132,7 @@ public static class NameFormatter
 
         PropertyInfo property = null;
 
+        // optimization if no nested property
         if (!name.Contains('.'))
         {
             property = currentType.GetRuntimeProperty(name);
@@ -130,6 +144,7 @@ public static class NameFormatter
         {
             if (property != null)
             {
+                // pending property, get value and type
                 currentTarget = property.GetValue(currentTarget);
                 currentType = property.PropertyType;
             }
@@ -137,6 +152,7 @@ public static class NameFormatter
             property = currentType.GetRuntimeProperty(part);
         }
 
+        // return last property
         return property?.GetValue(currentTarget);
     }
 
